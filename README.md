@@ -3,6 +3,8 @@
 ## What's going on here?
 this repository is basically a complex write-up on about 15 lexical features of Javascript; in my opinion, important features that everyone should be knowing
 
+[TOC]
+
 ## The Core Code:
 
 	(function(ns){
@@ -17,8 +19,7 @@ this repository is basically a complex write-up on about 15 lexical features of 
 			base.ns_apply_to = base.ns_run = exec
 			if (base != window && ! base.namespace) base.namespace = namespace;
 			
-			var names = nsString.split('.');
-			var name = names.shift();
+			var names = nsString.split('.'),name = names.shift();
 			if (name != '') return create(base[name] = ( base[name] || {} ), names.join('.'));
 			return base;
 			
@@ -67,11 +68,18 @@ Javascript handles scope in a very unique way: variables created in any scope, e
 		/* ... */
 	}
 
+	var create = function(base, nsString){
+		if (arguments.length == 1) {
+			nsString = base; base = this;
+		}
+		/* ... */
+	}
 
 ### lambda
 	var create = function(base, nsString){ /* ... */}
 
-### handling arbitrary arguements
+### handling arbitrary arguements, multiple prototypes
+
 	if (arguments.length == 1) {
 		nsString = base; base = this;
 	}
@@ -89,13 +97,21 @@ Javascript handles scope in a very unique way: variables created in any scope, e
 	base.ns_parent = ns_parent;
 
 ### prototypes (C++ style)
+	var create;
+
 	base.ns_create = create
+
+	create = function(){
+		/* ... */
+	}
 
 ### Object properties, methods, and assignable functions
 	base.ns_create = create
 
 ### multiple assignment
 	base.ns_apply_to = base.ns_run = exec
+
+	var a,b = 4, c;
 
 ### Lazy object initialization with OR (||)
 	base[name] = ( base[name] || {} )
@@ -125,5 +141,5 @@ Javascript handles scope in a very unique way: variables created in any scope, e
 
 ### Anonymous self-invocation
 	(function(ns){ })('namespace');
-	
+
 ### end-of-line characters and continuations

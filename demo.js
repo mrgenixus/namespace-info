@@ -1,5 +1,5 @@
 namespace('com.github.mrgenixus.namespace-info.errors',function($){
-	
+
 	this.display = true;
 
 	var error_messages = (this.reset = function (){
@@ -41,7 +41,6 @@ namespace('com.github.mrgenixus.namespace-info.errors',function($){
 	this.success = new_success; this.error = new_error; this.new = new_message;
 
 })
-
 
 namespace('com.github.mrgenixus.namespace-info.forms',function($){
 
