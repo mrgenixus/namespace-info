@@ -1,4 +1,11 @@
-	var namespace = (function(ns){
+# Namespaces in Javascipt
+*with acknowledgements to David Flannigan for his contribution: 'Javascript: The definitive Guide' by O'Reilly*
+## What's going on here?
+this repository is basically a complex write-up on about 15 lexical features of Javascript; in my opinion, important features that everyone should be knowing
+
+## The Core Code:
+
+	(function(ns){
 		var ns_parent = this;
 		var create = function(base, nsString){
 			if (arguments.length == 1) {
@@ -27,5 +34,31 @@
 				return space;
 		}
 
-		return namespace
-	})()
+		window[ns] = namespace
+	})('namespace')
+
+## Breaking it down;
+I'm going to take this in secions, here we go ...
+### 
+	
+### Closure and Anonymous self-invocation
+	(function(){ /* ... */ })();
+This is a very common idiom in javascript with several benefits and otherwise, important uses
+* The code inside this function can be isolated from other code
+* Variables explicity declared in this scope will NOT clutter the global scope;
+* variables from an enclosing scope can be save in a private scope by including them in the call
+specifically, closures may be considered a scope package: a closed loop for ceartain kinds of data;
+
+### No Static keywork, but static variables, through closure
+	(function(){ 
+		var ns_parent = this;
+		var anon = function(){ /* ... */ };
+	})();
+	
+### lambda
+	var create = function(base, nsString){ /* ... */}
+
+### Explicit Declaration
+	var namespace /* ... */
+Javascript handles scope in a very unique way: variables created in any scope, except when prefixed with 'var' are added to the global or 'window' scope; object properties are not new variables, so they are added to an objects scope; using 'var' in the global or 'window' scope is meaningless, but may be required by some interpretters
+

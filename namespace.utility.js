@@ -1,4 +1,5 @@
-var namespace = (function(ns){
+(function(ns){
+
 	var ns_parent = this;
 	var create = function(base, nsString){
 		if (arguments.length == 1) {
@@ -9,7 +10,7 @@ var namespace = (function(ns){
 		if (base != window && ! base.ns_create) base.ns_create = create
 		base.ns_apply_to = base.ns_run = exec
 		if (base != window && ! base.namespace) base.namespace = namespace;
-		
+
 		var names = nsString.split('.');
 		var name = names.shift();
 		if (name != '') return create(base[name] = ( base[name] || {} ), names.join('.'));
@@ -27,5 +28,5 @@ var namespace = (function(ns){
 			return space;
 	}
 
-	return namespace
-})()
+	window[ns]= namespace;
+})('namespace')
