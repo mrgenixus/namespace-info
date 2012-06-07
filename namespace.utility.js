@@ -18,7 +18,7 @@
 		
 	}
 	var exec = function(scope){
-		return scope.apply(this,arguments);
+		return scope.apply(this,Array.prototype.slice.apply(arguments,[1]));
 	}
 	var namespace = function(nsString,scope){
 			ns_parent = this;
