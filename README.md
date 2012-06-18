@@ -41,7 +41,30 @@ this repository is basically a complex write-up on about 15 lexical features of 
 ## Breaking it down;
 I'm going to take this in secions, here we go ...
 ### Namespacing in Javascript
-this is some text about that
+
+#### complications:
+Namespacing in Javascript is pretty complicated.  Since every type is a member-symbol of the global or 'window' scope, by default, just adding new types can create problems if namespacing isn't carefully managed.  The common conception in Javascript is to use a style not-unlike python's modules system.  In Javascript, the definitive guide, David Flanagan recommends using an internet namespace that you own, such as mine: new-life-tech.com, as the base namespace for new obejcts used by Javascript applications.  Then, use the package name.  for-example, the javascript designed FOR this tutorial should be in the namespace: com.github.mrgenixus.namespace_info.  What this means, in-practice, is that objects must be initialized at each level of the tree.
+
+#### Implementation
+
+	window['com'] = window['com'] || {};
+
+Above is the easiest, and possibly, best, way to inialize the root node.  Each subsequent namespace should be defined similarly:
+
+	bn = window['com'] //base_namespace, renamed for convenience
+	bn = (bn.github = bn.github || {}); //initize child and reset base
+	bn = (bn.mrgenixus = bn.mrgenixus || {}); // wash, rinse repeat
+	bn.namespace_info = bn.namespace_info || {}; //instances com.github.mrgenixus.namespace_info
+
+#### using namespaces
+
+Once you're using namespaces, there are some changes to the basic javascript which allow greater flexibility.  One method is to define new methods in their namespace:
+
+	com.github.mrgenixus.namespace_info.create_namespace = function(){ /* ... */ }
+
+another is to use the apply and call syntaxes; I'll be covering that below.
+
+
 	
 ### Closure
 
